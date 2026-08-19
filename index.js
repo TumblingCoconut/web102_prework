@@ -143,7 +143,25 @@ function showAllGames() {
     addGamesToPage(GAMES_JSON);
 
 }
-showAllGames()
+
+// button animation handler
+function setActive(clickedBtn){
+    const buttons = document.querySelectorAll('#button-container button');
+    buttons.forEach( button => {button.classList.remove('active')});
+    clickedBtn.target.classList.add('active');
+
+    switch (clickedBtn.target.id){
+        case 'unfunded-btn':
+            filterUnfundedOnly();
+            break;
+        case 'funded-btn':
+            filterFundedOnly();
+            break;
+        case 'all-btn':
+            showAllGames();
+            break;
+    }
+}
 
 // select each button in the "Our Games" section
 const unfundedBtn = document.getElementById("unfunded-btn");
@@ -151,9 +169,9 @@ const fundedBtn = document.getElementById("funded-btn");
 const allBtn = document.getElementById("all-btn");
 
 // add event listeners with the correct functions to each button
-unfundedBtn.addEventListener("click", filterUnfundedOnly);
-fundedBtn.addEventListener("click", filterFundedOnly);
-allBtn.addEventListener("click", showAllGames);
+unfundedBtn.addEventListener("click", (e) => {setActive(e)});
+fundedBtn.addEventListener("click", (e) => {setActive(e)});
+allBtn.addEventListener("click", (e) => setActive(e));
 
 /*************************************************************************************
  * Challenge 6: Add more information at the top of the page about the company.

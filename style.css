@@ -79,6 +79,10 @@ body {
     text-align: center;
 }
 
+#button-container button.active {
+    background-color: #525D6B;
+}
+
 button {
     font-family: 'Cabin';
     border: none;
