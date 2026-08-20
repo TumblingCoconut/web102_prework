@@ -4,13 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width">
     <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   </head>
 
   <body>
     <!-- header row with logo -->
     <div class="header">
-        <img id="tentacles" src="assets/tentacles.png">
-        <h1 class="header-text">Sea Monster Crowdfunding</h1>
+        <div id="company-header">
+            <img id="tentacles" src="assets/tentacles.png">
+            <h1 class="header-text">Sea Monster Crowdfunding</h1>
+        </div>
+        <button id="game-nav-btn">Our Games</button>
 
     </div>
 
@@ -49,7 +53,7 @@
     </div>
 
     <!-- list of games funded by Sea Monster -->
-    <h2>Our Games</h2>
+    <h2 id="our-games">Our Games</h2>
     <p>Check out each of our games below!</p>
     <div id="search-container">
         <img id="magnifying-glass" src="assets/magnifyingGlass.png">
@@ -64,7 +68,10 @@
 
     </div>
 
+    <button id=up-btn>
+        <img src="assets/upArrow.png">
+    </button>
+
     <script type="module" src="index.js"></script>
   </body>
 </html>
-Icon by <a href='https://www.iconpacks.net/?utm_source=link-attribution&utm_content=2903'>Iconpacks</a>

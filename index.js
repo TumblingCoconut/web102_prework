@@ -262,3 +262,20 @@ function searchGame(input){
 
 const inputField = document.getElementById("input-field");
 inputField.addEventListener("keyup", (event) => {searchGame(event.target.value)})
+
+// Game nav button
+function scrollToGames(){
+    document.getElementById("our-games").scrollIntoView({behavior:'smooth'});
+}
+
+const scrollGamesBtn = document.getElementById("game-nav-btn");
+scrollGamesBtn.addEventListener("click", scrollToGames);
+
+// scroll to top button
+function scrollToTop(){
+    document.getElementById("company-header").scrollIntoView({behavior:'smooth'});
+}
+
+
+const scrollTop = document.getElementById("up-btn");
+scrollTop.addEventListener("click", scrollToTop);
