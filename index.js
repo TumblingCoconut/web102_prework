@@ -8,7 +8,7 @@
 import GAMES_DATA from './games.js';
 
 // create a list of objects to store the data about the games using JSON.parse
-const GAMES_JSON = JSON.parse(GAMES_DATA)
+const GAMES_JSON = JSON.parse(GAMES_DATA);
 
 // remove all child elements from a parent element in the DOM
 function deleteChildElements(parent) {
@@ -40,13 +40,13 @@ function addGamesToPage(games) {
         // about each game
         // TIP: if your images are not displaying, make sure there is space
         // between the end of the src attribute and the end of the tag ("/>")
-        game_card.innerHTML =   `
-                                
-                                <img class=game-img src=${key.img} width=300px >
-                                <h3>${key.name}</h3>
-                                <p>Description: ${key.description}</p>
-                                <p>Pledged: ${key.pledged} / ${key.goal}</p>
-                                <p>Backers: ${key.backers}</p>`;
+        game_card.innerHTML =`
+                            <img class=game-img src=${key.img} width=300px >
+                            <h3>${key.name}</h3>
+                            <p>Description: ${key.description}</p>
+                            <p>Pledged: ${key.pledged} / ${key.goal}</p>
+                            <p>Backers: ${key.backers}</p>
+                            `;
 
 
         // append the game to the games-container
@@ -144,12 +144,20 @@ function showAllGames() {
 
 }
 
-// button animation handler
+// CUSTOMIZE: button animation handler
 function setActive(clickedBtn){
+    // Button selection
     const buttons = document.querySelectorAll('#button-container button');
     buttons.forEach( button => {button.classList.remove('active')});
-    clickedBtn.target.classList.add('active');
+    
+    if (clickedBtn == 'None'){
+        return;
+    }
+    else{
+        clickedBtn.target.classList.add('active');
+    }
 
+    // event handler
     switch (clickedBtn.target.id){
         case 'unfunded-btn':
             filterUnfundedOnly();
@@ -168,10 +176,15 @@ const unfundedBtn = document.getElementById("unfunded-btn");
 const fundedBtn = document.getElementById("funded-btn");
 const allBtn = document.getElementById("all-btn");
 
+
 // add event listeners with the correct functions to each button
-unfundedBtn.addEventListener("click", (e) => {setActive(e)});
-fundedBtn.addEventListener("click", (e) => {setActive(e)});
-allBtn.addEventListener("click", (e) => setActive(e));
+// setActive handles individual results
+unfundedBtn.addEventListener("click", (event) => {setActive(event)});
+fundedBtn.addEventListener("click", (event) => {setActive(event)});
+allBtn.addEventListener("click", (event) => setActive(event));
+
+// trigger all games filter, it should be default filter
+allBtn.click();
 
 /*************************************************************************************
  * Challenge 6: Add more information at the top of the page about the company.
@@ -204,7 +217,9 @@ descriptionContainer.appendChild(displayStrElement);
 const firstGameContainer = document.getElementById("first-game");
 const secondGameContainer = document.getElementById("second-game");
 
-const sortedGames =  GAMES_JSON.sort( (item1, item2) => {
+// sort mutates array in place, so we make a copy
+const GAMES_COPY = [...GAMES_JSON];
+const sortedGames =  GAMES_COPY.sort( (item1, item2) => {
     return item2.pledged - item1.pledged;
 });
 
@@ -212,6 +227,7 @@ const sortedGames =  GAMES_JSON.sort( (item1, item2) => {
 const [first, second, ...rest] = sortedGames;
 
 // create a new element to hold the name of the top pledge game, then append it to the correct element
+// Custom element function
 function addTopGames(gameContainer, game){
     gameContainer.insertAdjacentHTML('beforeend',  `
                         <div id='top-card'>
@@ -226,3 +242,23 @@ addTopGames(firstGameContainer, first);
 
 // do the same for the runner up item
 addTopGames(secondGameContainer, second);
+
+// search function
+function searchGame(input){
+    // reset filter button options
+    setActive('None');
+
+    // normalize search and game name, then filter
+    const match_search = GAMES_JSON.filter( (game) => {
+        const lowercaseSearch = input.toLowerCase();
+        const lowercaseGame = game.name.toLowerCase()
+        return lowercaseGame.includes(lowercaseSearch);
+    });
+
+    // update games container with matches
+    deleteChildElements(gamesContainer);
+    addGamesToPage(match_search);
+}
+
+const inputField = document.getElementById("input-field");
+inputField.addEventListener("keyup", (event) => {searchGame(event.target.value)})

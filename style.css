@@ -90,3 +90,40 @@ button {
     margin: 1%;
     border-radius: 7px;
 }
+
+#search-container {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    min-width: 100px;
+    max-width: 500px;
+
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    font-size: 15px;
+    overflow: hidden;
+
+}
+
+#search-container:hover {
+    cursor: pointer;
+    box-shadow: 0 0 30px lightblue;
+}
+
+#magnifying-glass {
+    padding: 10px;
+    height: 20px;
+}
+
+#input-field{
+    flex: 1; /* Takes all remaining space */
+    width: 100%;
+    border: none;
+    height: 20px;
+}
+
+#input-field:focus {
+    outline: none;
+}
