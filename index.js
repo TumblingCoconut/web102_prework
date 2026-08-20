@@ -25,6 +25,33 @@ function deleteChildElements(parent) {
 // grab the element with the id games-container
 const gamesContainer = document.getElementById("games-container");
 
+// CUSTOM: function that adds visual goal progress bar
+function addProgressBar(game_card, fraction, total){
+    const container = document.createElement('div');
+    container.classList.add('progress-container');
+
+    const bar = document.createElement('div');
+    bar.classList.add('progress-bar');
+
+    const percentage = (fraction/total) * 100;
+    const correctedPercentage = Math.min(Math.max(percentage, 0), 100);
+    console.log(correctedPercentage);
+    bar.style.width = `${correctedPercentage}%`;
+
+    const barText = document.createElement('span');
+    barText.classList.add('progress-text');
+    barText.textContent = `$ ${fraction} / ${total}`;
+
+    
+    container.appendChild(bar);
+    container.appendChild(barText);
+    game_card.appendChild(container);
+
+
+    console.log('test');
+}
+
+
 // create a function that adds all data from the games array to the page
 function addGamesToPage(games) {
 
@@ -43,13 +70,14 @@ function addGamesToPage(games) {
         game_card.innerHTML =`
                             <img class=game-img src=${key.img} width=300px >
                             <h3>${key.name}</h3>
-                            <p>Description: ${key.description}</p>
-                            <p>Pledged: ${key.pledged} / ${key.goal}</p>
+                            <p>Description: ${key.description}</p>                
                             <p>Backers: ${key.backers}</p>
                             `;
 
 
         // append the game to the games-container
+        addProgressBar(game_card, key.pledged, key.goal);
+
         let games_container = document.getElementById("games-container");
         games_container.appendChild(game_card);
     }
