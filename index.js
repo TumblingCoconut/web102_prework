@@ -26,7 +26,7 @@ function deleteChildElements(parent) {
 const gamesContainer = document.getElementById("games-container");
 
 // CUSTOM: function that adds visual goal progress bar
-function addProgressBar(game_card, fraction, total){
+function addProgressBar(gameCard, fraction, total){
     const container = document.createElement('div');
     container.classList.add('progress-container');
 
@@ -35,20 +35,18 @@ function addProgressBar(game_card, fraction, total){
 
     const percentage = (fraction/total) * 100;
     const correctedPercentage = Math.min(Math.max(percentage, 0), 100);
-    console.log(correctedPercentage);
     bar.style.width = `${correctedPercentage}%`;
 
     const barText = document.createElement('span');
     barText.classList.add('progress-text');
     barText.textContent = `$ ${fraction} / ${total}`;
 
-    
+    // add to DOM
     container.appendChild(bar);
     container.appendChild(barText);
-    game_card.appendChild(container);
+    gameCard.appendChild(container);
 
 
-    console.log('test');
 }
 
 
@@ -58,16 +56,16 @@ function addGamesToPage(games) {
     // loop over each item in the data
     for (const key of games){
         // create a new div element, which will become the game card
-        let game_card = document.createElement('div');
+        let gameCard = document.createElement('div');
 
         // add the class game-card to the list
-        game_card.classList.add('game-card');
+        gameCard.classList.add('game-card');
 
         // set the inner HTML using a template literal to display some info 
         // about each game
         // TIP: if your images are not displaying, make sure there is space
         // between the end of the src attribute and the end of the tag ("/>")
-        game_card.innerHTML =`
+        gameCard.innerHTML =`
                             <img class=game-img src=${key.img} width=300px >
                             <h3>${key.name}</h3>
                             <p>Description: ${key.description}</p>                
@@ -76,10 +74,10 @@ function addGamesToPage(games) {
 
 
         // append the game to the games-container
-        addProgressBar(game_card, key.pledged, key.goal);
+        addProgressBar(gameCard, key.pledged, key.goal);
 
-        let games_container = document.getElementById("games-container");
-        games_container.appendChild(game_card);
+        let gamesContainer = document.getElementById("games-container");
+        gamesContainer.appendChild(gameCard);
     }
 }
 
@@ -97,33 +95,29 @@ addGamesToPage(GAMES_JSON);
 const contributionsCard = document.getElementById("num-contributions");
 
 // use reduce() to count the number of total contributions by summing the backers
-const total_contributions = GAMES_JSON.reduce( (total, game) => {
+const totalContributions = GAMES_JSON.reduce( (total, game) => {
     return total + game.backers;
 }, 0).toLocaleString('en-US');
 
 // set the inner HTML using a template literal and toLocaleString to get a number with commas
-contributionsCard.innerHTML = `<p>${total_contributions}</p>`;
+contributionsCard.innerHTML = `<p>${totalContributions}</p>`;
 
 
 // grab the amount raised card, then use reduce() to find the total amount raised
 const raisedCard = document.getElementById("total-raised");
 
-const total_raised = GAMES_JSON.reduce( (money, game) => {
+const totalRaised = GAMES_JSON.reduce( (money, game) => {
     return money + game.pledged;
 }, 0).toLocaleString('en-US');
 
 // set inner HTML using template literal
-raisedCard.innerHTML = `<p>$${total_raised}</p>`;
+raisedCard.innerHTML = `<p>$${totalRaised}</p>`;
 
 
 // grab number of games card and set its inner HTML
 const gamesCard = document.getElementById("num-games");
-
-const total_games = GAMES_JSON.reduce( (games_number, game) => {
-    return games_number + 1
-}, 0).toLocaleString('en-US');
-
-gamesCard.innerHTML = `<p>${total_games}</p>`;
+const totalGames = GAMES_JSON.length.toLocaleString('en-US');
+gamesCard.innerHTML = `<p>${totalGames}</p>`;
 
 
 
@@ -139,12 +133,12 @@ function filterUnfundedOnly() {
     deleteChildElements(gamesContainer);
 
     // use filter() to get a list of games that have not yet met their goal
-    const under_goal = GAMES_JSON.filter( (game) => {
+    const underGoal = GAMES_JSON.filter( (game) => {
         return game.pledged < game.goal;
     });
 
     // use the function we previously created to add the unfunded games to the DOM
-    addGamesToPage(under_goal);
+    addGamesToPage(underGoal);
 
 }
 
@@ -154,12 +148,12 @@ function filterFundedOnly() {
     deleteChildElements(gamesContainer);
 
     // use filter() to get a list of games that have met or exceeded their goal
-    const met_goal = GAMES_JSON.filter( (game) => {
+    const metGoal = GAMES_JSON.filter( (game) => {
         return game.goal <= game.pledged;
     });
 
     // use the function we previously created to add unfunded games to the DOM
-    addGamesToPage(met_goal);
+    addGamesToPage(metGoal);
 }
 
 // show all games
@@ -223,13 +217,13 @@ allBtn.click();
 const descriptionContainer = document.getElementById("description-container");
 
 // use filter or reduce to count the number of unfunded games
-const unfunded_games = GAMES_JSON.reduce( (games_number, game) => {
-    return game.pledged < game.goal ? games_number + 1 : games_number;  
+const unfundedGames = GAMES_JSON.reduce( (gamesNumber, game) => {
+    return game.pledged < game.goal ? gamesNumber + 1 : gamesNumber;  
 }, 0);
 
 // create a string that explains the number of unfunded games using the ternary operator
-const displayStr = `A total of $${total_raised} has been raised for ${total_games} games. \
-Currently, ${unfunded_games} game${unfunded_games > 1 ? 's' : ''} remains unfunded. We need \
+const displayStr = `A total of $${totalRaised} has been raised for ${totalGames} games. \
+Currently, ${unfundedGames} game${unfundedGames > 1 ? 's' : ''} remains unfunded. We need \
 your help to fund these amazing games!`;         
 
 // create a new DOM element containing the template string and append it to the description container
@@ -257,12 +251,14 @@ const [first, second, ...rest] = sortedGames;
 // create a new element to hold the name of the top pledge game, then append it to the correct element
 // Custom element function
 function addTopGames(gameContainer, game){
+    const percentage = Math.round((game.pledged / game.goal) * 100, 1);
     gameContainer.insertAdjacentHTML('beforeend',  `
                         <div id='top-card'>
                                 <img src=${game.img} width=50%>
                                 <div id='top-info'>
                                 <h3>${game.name}</h3>
                                 <p>$${game.pledged.toLocaleString('en-US')}
+                                <p>${percentage}% funded</p>
                                 <div>
                         </div>`);
 }
@@ -277,7 +273,7 @@ function searchGame(input){
     setActive('None');
 
     // normalize search and game name, then filter
-    const match_search = GAMES_JSON.filter( (game) => {
+    const matchSearch = GAMES_JSON.filter( (game) => {
         const lowercaseSearch = input.toLowerCase();
         const lowercaseGame = game.name.toLowerCase()
         return lowercaseGame.includes(lowercaseSearch);
@@ -285,7 +281,7 @@ function searchGame(input){
 
     // update games container with matches
     deleteChildElements(gamesContainer);
-    addGamesToPage(match_search);
+    addGamesToPage(matchSearch);
 }
 
 const inputField = document.getElementById("input-field");
