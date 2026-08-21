@@ -55,6 +55,11 @@ body {
     text-align: center;
 }
 
+#num-contributions, #total-raised, #num-games {
+    font-size: 50px;
+}
+
+/* div added in javascript*/
 #top-card{
     display: flex;
     flex-direction: row;
@@ -62,10 +67,7 @@ body {
     gap: 1rem;
 }
 
-#num-contributions, #total-raised, #num-games {
-    font-size: 50px;
-}
-
+/* progress bar added in javascript */
 .progress-container {
     position: relative;
     width: 100%;
@@ -96,6 +98,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    min-height: 300px;
 }
 
 .game-img {
@@ -116,23 +119,6 @@ body {
 .game-card:hover {
     cursor: pointer;
     box-shadow: 10px 10px black;
-}
-
-#button-container {
-    text-align: center;
-}
-
-#button-container button.active {
-    background-color: #525D6B;
-}
-
-button {
-    font-family: 'Cabin';
-    border: none;
-    padding: 1%;
-    margin: 1%;
-    border-radius: 7px;
-    font-size: 15px;
 }
 
 #search-container {
@@ -170,6 +156,23 @@ button {
 #input-field:focus {
     outline: none;
     
+}
+
+#button-container {
+    text-align: center;
+}
+
+#button-container button.active {
+    background-color: #525D6B;
+}
+
+button {
+    font-family: 'Cabin';
+    border: none;
+    padding: 1%;
+    margin: 1%;
+    border-radius: 7px;
+    font-size: 15px;
 }
 
 #up-btn {

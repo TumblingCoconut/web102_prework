@@ -33,6 +33,7 @@ function addProgressBar(gameCard, fraction, total){
     const bar = document.createElement('div');
     bar.classList.add('progress-bar');
 
+    // correct percentage to prevent overflow
     const percentage = (fraction/total) * 100;
     const correctedPercentage = Math.min(Math.max(percentage, 0), 100);
     bar.style.width = `${correctedPercentage}%`;
@@ -45,13 +46,17 @@ function addProgressBar(gameCard, fraction, total){
     container.appendChild(bar);
     container.appendChild(barText);
     gameCard.appendChild(container);
-
-
 }
 
 
 // create a function that adds all data from the games array to the page
 function addGamesToPage(games) {
+    let gamesContainer = document.getElementById("games-container");
+    console.log(!games);
+    if (games == false){
+        gamesContainer.innerHTML = `<p> No games found </p>`;
+        return;
+    }
 
     // loop over each item in the data
     for (const key of games){
@@ -72,11 +77,10 @@ function addGamesToPage(games) {
                             <p>Backers: ${key.backers}</p>
                             `;
 
-
         // append the game to the games-container
         addProgressBar(gameCard, key.pledged, key.goal);
 
-        let gamesContainer = document.getElementById("games-container");
+        
         gamesContainer.appendChild(gameCard);
     }
 }
@@ -84,6 +88,7 @@ function addGamesToPage(games) {
 // call the function we just defined using the correct variable
 // later, we'll call this function using a different list of games
 addGamesToPage(GAMES_JSON);
+
 
 /*************************************************************************************
  * Challenge 4: Create the summary statistics at the top of the page displaying the
@@ -102,10 +107,8 @@ const totalContributions = GAMES_JSON.reduce( (total, game) => {
 // set the inner HTML using a template literal and toLocaleString to get a number with commas
 contributionsCard.innerHTML = `<p>${totalContributions}</p>`;
 
-
 // grab the amount raised card, then use reduce() to find the total amount raised
 const raisedCard = document.getElementById("total-raised");
-
 const totalRaised = GAMES_JSON.reduce( (money, game) => {
     return money + game.pledged;
 }, 0).toLocaleString('en-US');
@@ -113,12 +116,10 @@ const totalRaised = GAMES_JSON.reduce( (money, game) => {
 // set inner HTML using template literal
 raisedCard.innerHTML = `<p>$${totalRaised}</p>`;
 
-
 // grab number of games card and set its inner HTML
 const gamesCard = document.getElementById("num-games");
 const totalGames = GAMES_JSON.length.toLocaleString('en-US');
 gamesCard.innerHTML = `<p>${totalGames}</p>`;
-
 
 
 /*************************************************************************************
@@ -198,7 +199,6 @@ const unfundedBtn = document.getElementById("unfunded-btn");
 const fundedBtn = document.getElementById("funded-btn");
 const allBtn = document.getElementById("all-btn");
 
-
 // add event listeners with the correct functions to each button
 // setActive handles individual results
 unfundedBtn.addEventListener("click", (event) => {setActive(event)});
@@ -207,6 +207,7 @@ allBtn.addEventListener("click", (event) => setActive(event));
 
 // trigger all games filter, it should be default filter
 allBtn.click();
+
 
 /*************************************************************************************
  * Challenge 6: Add more information at the top of the page about the company.
@@ -230,6 +231,7 @@ your help to fund these amazing games!`;
 const displayStrElement = document.createElement('p');
 displayStrElement.textContent = displayStr;
 descriptionContainer.appendChild(displayStrElement);
+
 
 /************************************************************************************
  * Challenge 7: Select & display the top 2 games
@@ -267,7 +269,10 @@ addTopGames(firstGameContainer, first);
 // do the same for the runner up item
 addTopGames(secondGameContainer, second);
 
-// search function
+
+/************************************************************************************/
+// Search bar feature
+
 function searchGame(input){
     // reset filter button options
     setActive('None');
@@ -287,7 +292,8 @@ function searchGame(input){
 const inputField = document.getElementById("input-field");
 inputField.addEventListener("keyup", (event) => {searchGame(event.target.value)})
 
-// Game nav button
+
+// Nav bar Games button
 function scrollToGames(){
     document.getElementById("our-games").scrollIntoView({behavior:'smooth'});
 }
@@ -295,11 +301,11 @@ function scrollToGames(){
 const scrollGamesBtn = document.getElementById("game-nav-btn");
 scrollGamesBtn.addEventListener("click", scrollToGames);
 
-// scroll to top button
+
+// Scroll to top button
 function scrollToTop(){
     document.getElementById("company-header").scrollIntoView({behavior:'smooth'});
 }
-
 
 const scrollTop = document.getElementById("up-btn");
 scrollTop.addEventListener("click", scrollToTop);
