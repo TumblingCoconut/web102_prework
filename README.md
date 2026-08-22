@@ -4,7 +4,7 @@ Submitted by: **Joseph Lam**
 
 **Sea Monster Crowfunding Page** is a website for the company Sea Monster Crowdfunding that displays information about the games they have funded.
 
-Time spent: **6** hours spent in total
+Time spent: **10** hours spent in total
 
 ## Required Features
 
@@ -29,9 +29,16 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented features:
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/DWiCNrs"  ><a href="//imgur.com/a/DWiCNrs">web102 prework demo</a></blockquote>
+<div>
+    <a href="https://www.loom.com/share/b83890c2a34c4871b410e6580626356c">
+      <p>CodePath Web102 prework demo - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/b83890c2a34c4871b410e6580626356c">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/b83890c2a34c4871b410e6580626356c-f122af5e4e38dc4f-full-play.gif#t=0.1">
+    </a>
+  </div>
 
-GIF created with ... [Kap](https://getkap.co/)
+Demo created with [Loom]([https://www.loom.com/](https://www.loom.com/)
 <!-- Recommended tools:
 [Kap](https://getkap.co/) for macOS
 [ScreenToGif](https://www.screentogif.com/) for Windows
