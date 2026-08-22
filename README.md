@@ -17,7 +17,6 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-* [x] List anything else that you can get done to improve the app functionality!
 * [x] Games search bar
 * [x] Games nav shortcut button
 * [x] Replaced default animation with box shadows
