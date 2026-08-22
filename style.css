@@ -33,16 +33,13 @@ body {
 }
 
 #game-nav-btn:hover {
+    cursor: pointer;
     box-shadow: 5px 5px black;
 }
 
 .stats-container {
     display: flex;
     align-items: left; 
-}
-
-.stats-container:hover {
-    cursor: pointer;
 }
 
 .stats-card {
@@ -55,6 +52,7 @@ body {
 }
 
 .stats-card:hover {
+    cursor: cursor;
     box-shadow: 5px 5px black;
 }
 
@@ -120,7 +118,7 @@ body {
 }
 
 .game-card:hover {
-    cursor: pointer;
+    cursor: default;
     box-shadow: 10px 10px black;
 }
 

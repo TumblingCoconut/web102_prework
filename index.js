@@ -52,7 +52,6 @@ function addProgressBar(gameCard, fraction, total){
 // create a function that adds all data from the games array to the page
 function addGamesToPage(games) {
     let gamesContainer = document.getElementById("games-container");
-    console.log(!games);
     if (games == false){
         gamesContainer.innerHTML = `<p> No games found </p>`;
         return;
@@ -80,7 +79,6 @@ function addGamesToPage(games) {
         // append the game to the games-container
         addProgressBar(gameCard, key.pledged, key.goal);
 
-        
         gamesContainer.appendChild(gameCard);
     }
 }
@@ -177,11 +175,11 @@ function setActive(clickedBtn){
         return;
     }
     else{
-        clickedBtn.target.classList.add('active');
+        clickedBtn.classList.add('active');
     }
 
     // event handler
-    switch (clickedBtn.target.id){
+    switch (clickedBtn.id){
         case 'unfunded-btn':
             filterUnfundedOnly();
             break;
@@ -201,12 +199,12 @@ const allBtn = document.getElementById("all-btn");
 
 // add event listeners with the correct functions to each button
 // setActive handles individual results
-unfundedBtn.addEventListener("click", (event) => {setActive(event)});
-fundedBtn.addEventListener("click", (event) => {setActive(event)});
-allBtn.addEventListener("click", (event) => setActive(event));
+unfundedBtn.addEventListener("click", (event) => {setActive(event.target)});
+fundedBtn.addEventListener("click", (event) => {setActive(event.target)});
+allBtn.addEventListener("click", (event) => setActive(event.target));
 
 // trigger all games filter, it should be default filter
-allBtn.click();
+setActive(allBtn);
 
 
 /*************************************************************************************
@@ -275,7 +273,14 @@ addTopGames(secondGameContainer, second);
 
 function searchGame(input){
     // reset filter button options
-    setActive('None');
+    if (!input){
+        setActive(allBtn);
+        return;
+    }
+    else{
+        setActive('None');
+    }
+
 
     // normalize search and game name, then filter
     const matchSearch = GAMES_JSON.filter( (game) => {
@@ -286,7 +291,7 @@ function searchGame(input){
 
     // update games container with matches
     deleteChildElements(gamesContainer);
-    addGamesToPage(matchSearch);
+    addGamesToPage(matchSearch);   
 }
 
 const inputField = document.getElementById("input-field");
