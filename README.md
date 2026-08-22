@@ -30,10 +30,9 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented features:
 
-[![Video Walkthrough](https://i.imgur.com/web102-prework-demo-DWiCNrs.gif)](https://imgur.com/a/web102-prework-demo-DWiCNrs)
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/DWiCNrs"  ><a href="//imgur.com/a/DWiCNrs">web102 prework demo</a></blockquote>
 
-<!-- Replace this with whatever GIF tool you used! -->
-GIF created with ...  
+GIF created with ... [Kap](https://getkap.co/)
 <!-- Recommended tools:
 [Kap](https://getkap.co/) for macOS
 [ScreenToGif](https://www.screentogif.com/) for Windows
@@ -41,11 +40,11 @@ GIF created with ...
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Using the sort() mutates the original array of GAMES_JSON. I fix this by making a copy of the array for each search. A better method might be to use the toSorted() method instead.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2022] [CodePath]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
